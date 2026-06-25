@@ -133,6 +133,7 @@ body{font-family:'Inter',sans-serif;background:var(--cinza-bg);color:var(--texto
   .modal-body{flex-direction:column}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
 
@@ -265,7 +266,10 @@ const GENRE_COLORS={
   "Outro":                  {bg:"#F3F4F6",text:"#374151",spine:"#9CA3AF"},
 };
 
-const API_PATH='/api/books';
+const supabase = createClient(
+  'https://zbhxbbvayowfuecchoeu.supabase.co',
+  'sb_publishable_34fCt-rPSUAbn3kffbFhTg_G-vfjWs5'
+);
 const BOOKS_INITIAL=[
   {num:1, title:"Onde Vivem as Monstras",                author:"Aoko Matsuda",                   genre:"Conto",                   titleEn:"Where the Wild Ladies Are",            desc:"Coletânea de contos em que histórias do folclore japonês são recontadas sob uma perspectiva feminista. Mortos convivem com vivos, e o humor e o olhar feminino se entrecruzam."},
   {num:2, title:"Os Esquecidos de Domingo",              author:"Valérie Perrin",                 genre:"Romance",                 titleEn:"Forgotten on Sunday",                  desc:"Justine trabalha num lar de idosos numa pequena aldeia francesa, onde cria um laço profundo com Hélène, centenária cujo sonho sempre foi aprender a ler. Enquanto as conversas se multiplicam, ela começa a questionar a morte dos pais, e surgem telefonemas misteriosos."},
@@ -285,28 +289,57 @@ const BOOKS_INITIAL=[
 
 let books=[...BOOKS_INITIAL];
 let activeFilter="Todos";
+let fallbackMode=false;
 const coverCache={};
+
+/**
+ * Busca todos os livros no Supabase e converte os registros para o formato local.
+ * Se o banco estiver vazio, exibe BOOKS_INITIAL apenas como fallback.
+ */
 async function fetchBooks(){
   try{
-    const res=await fetch(API_PATH);
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const data=await res.json();
-    if(Array.isArray(data) && data.length>0){
-      books=data;
+    const { data, error } = await supabase
+      .from('books')
+      .select('*')
+      .order('created_at', { ascending: true });
+
+    if(error) throw error;
+    if(Array.isArray(data) && data.length > 0){
+      books = data.map(item => ({
+        num: item.id,
+        title: item.title || item.book_title || '',
+        author: item.author || item.book_author || '',
+        genre: item.genre || 'Outro',
+        desc: item.desc || item.description || '',
+        titleEn: item.titleEn || item.title_en || '',
+        coverUrl: item.cover_url || item.coverUrl || null,
+        isNew: false
+      }));
+      fallbackMode = false;
       return;
     }
+
+    books = [...BOOKS_INITIAL];
+    fallbackMode = true;
   }catch(err){
-    console.warn('Não foi possível carregar o backend, usando dados locais.',err);
+    console.warn('Falha ao carregar o Supabase. Usando dados locais.', err);
     books=[...BOOKS_INITIAL];
+    fallbackMode=true;
   }
 }
-async function sendBookToBackend(book){
-  const res=await fetch(API_PATH,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(book)});
-  if(!res.ok){
-    const errorText=await res.text();
-    throw new Error(errorText||`HTTP ${res.status}`);
-  }
-  return await res.json();
+
+/**
+ * Insere um novo livro no Supabase e retorna o registro criado.
+ */
+async function submitBookToSupabase(book){
+  const { data, error } = await supabase
+    .from('books')
+    .insert(book)
+    .select()
+    .single();
+
+  if(error) throw error;
+  return data;
 }
 
 
@@ -484,14 +517,43 @@ async function submitBook(){
   const name    =document.getElementById('f-name').value.trim();
   const coverUrl=document.getElementById('f-cover').value.trim();
   if(!title||!author||!genre||!desc){alert('Por favor, preencha título, autor, gênero e descrição.');return;}
-  const newBook={title,author,genre,desc,coverUrl:coverUrl||null,isNew:true};
+
+  const newBookPayload={
+    title,
+    author,
+    genre,
+    desc,
+    cover_url: coverUrl || null
+  };
+
   try{
-    const saved=await sendBookToBackend(newBook);
+    const savedRecord = await submitBookToSupabase(newBookPayload);
+    const saved = {
+      num: savedRecord.id,
+      title: savedRecord.title || title,
+      author: savedRecord.author || author,
+      genre: savedRecord.genre || genre,
+      desc: savedRecord.desc || desc,
+      titleEn: savedRecord.titleEn || '',
+      coverUrl: savedRecord.cover_url || coverUrl || null,
+      isNew: true
+    };
     books.push(saved);
+    fallbackMode = false;
   }catch(err){
-    console.warn('Backend indisponível, salvando temporariamente apenas no navegador.', err);
-    books.push({num:books.length+1,...newBook});
+    console.warn('Falha ao salvar no Supabase. Salvando temporariamente apenas no navegador.', err);
+    books.push({
+      num: books.length + 1,
+      title,
+      author,
+      genre,
+      desc,
+      titleEn:'',
+      coverUrl:coverUrl||null,
+      isNew:true
+    });
   }
+
   ['f-title','f-author','f-genre','f-desc','f-name','f-cover'].forEach(id=>{
     const el=document.getElementById(id);
     el.value='';
