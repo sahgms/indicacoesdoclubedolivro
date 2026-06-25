@@ -5,102 +5,133 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clube do Livro — Comunidade do Breno</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-  :root {
-    --laranja: #E85C00;
-    --laranja-l: #FFF3EB;
-    --roxo: #5B21B6;
-    --cinza-bg: #FAF9F7;
-    --cinza-card: #F3F1EE;
-    --cinza-borda: #E2DDD8;
-    --texto: #1A1917;
-    --texto-m: #6B6560;
-    --branco: #ffffff;
-  }
+:root{
+  --laranja:#E85C00;
+  --laranja-l:#FFF3EB;
+  --roxo:#5B21B6;
+  --roxo-l:#EDE9FE;
+  --cinza-bg:#FAF9F7;
+  --cinza-card:#F3F1EE;
+  --cinza-borda:#E2DDD8;
+  --texto:#1A1917;
+  --texto-m:#6B6560;
+  --branco:#ffffff;
+}
 
-  body { font-family: 'Inter', sans-serif; background: var(--cinza-bg); color: var(--texto); min-height: 100vh; }
+body{font-family:'Inter',sans-serif;background:var(--cinza-bg);color:var(--texto);min-height:100vh}
 
-  .site-header { background: var(--laranja); position: relative; overflow: hidden; }
-  .stripe { height: 10px; background: repeating-linear-gradient(-45deg, transparent, transparent 10px, var(--roxo) 10px, var(--roxo) 20px); }
-  .header-inner { padding: 28px 40px 32px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-  .header-icon { font-size: 44px; line-height: 1; }
-  .header-texts h1 { font-family: 'Playfair Display', serif; font-size: clamp(20px,4vw,32px); color: #fff; font-weight: 700; line-height: 1.1; }
-  .header-texts .sub { font-size: 13px; color: rgba(255,255,255,0.8); margin-top: 4px; letter-spacing: 0.05em; text-transform: uppercase; }
-  .header-count { margin-left: auto; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 10px 20px; text-align: center; color: #fff; min-width: 80px; }
-  .header-count .num { font-size: 28px; font-weight: 600; line-height: 1; }
-  .header-count .lbl { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+/* ── HEADER ── */
+.site-header{background:var(--laranja);position:relative;overflow:hidden}
+.stripe{height:10px;background:repeating-linear-gradient(-45deg,transparent,transparent 10px,var(--roxo) 10px,var(--roxo) 20px)}
+.header-inner{padding:24px 40px 0;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.header-icon{font-size:40px;line-height:1}
+.header-texts h1{font-family:'Playfair Display',serif;font-size:clamp(18px,3.5vw,28px);color:#fff;font-weight:700;line-height:1.1}
+.header-texts .sub{font-size:12px;color:rgba(255,255,255,0.8);margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
+.header-count{margin-left:auto;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:12px;padding:8px 18px;text-align:center;color:#fff}
+.header-count .num{font-size:24px;font-weight:600;line-height:1}
+.header-count .lbl{font-size:10px;opacity:.8;margin-top:2px}
 
-  .main { max-width: 860px; margin: 0 auto; padding: 36px 20px 60px; }
+/* ── TABS ── */
+.tabs-bar{display:flex;gap:0;padding:0 40px;margin-top:16px}
+.tab-btn{padding:12px 28px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:rgba(255,255,255,0.7);background:transparent;border:none;cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;letter-spacing:.01em}
+.tab-btn:hover{color:#fff}
+.tab-btn.active{color:#fff;border-bottom-color:#fff}
 
-  .intro { background: var(--branco); border: 1px solid var(--cinza-borda); border-radius: 14px; padding: 20px 24px; margin-bottom: 28px; font-size: 14px; color: var(--texto-m); line-height: 1.7; }
+/* ── MAIN ── */
+.main{max-width:1040px;margin:0 auto;padding:32px 20px 60px}
 
-  .filters-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; align-items: center; }
-  .filter-label { font-size: 12px; color: var(--texto-m); font-weight: 500; margin-right: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .pill { padding: 5px 14px; border-radius: 99px; font-size: 13px; cursor: pointer; border: 1.5px solid var(--cinza-borda); background: var(--branco); color: var(--texto-m); font-family: 'Inter', sans-serif; transition: all 0.15s; }
-  .pill:hover { border-color: var(--laranja); color: var(--laranja); }
-  .pill.active { background: var(--laranja); color: #fff; border-color: var(--laranja); }
+.tab-panel{display:none}
+.tab-panel.active{display:block}
 
-  .books-grid { display: flex; flex-direction: column; gap: 16px; }
+/* ── FILTERS ── */
+.filters-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;align-items:center}
+.filter-label{font-size:12px;color:var(--texto-m);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-right:4px}
+.pill{padding:5px 14px;border-radius:99px;font-size:13px;cursor:pointer;border:1.5px solid var(--cinza-borda);background:var(--branco);color:var(--texto-m);font-family:'Inter',sans-serif;transition:all .15s}
+.pill:hover{border-color:var(--laranja);color:var(--laranja)}
+.pill.active{background:var(--laranja);color:#fff;border-color:var(--laranja)}
 
-  .book-card { background: var(--branco); border: 1px solid var(--cinza-borda); border-radius: 14px; display: flex; overflow: hidden; transition: box-shadow 0.2s; }
-  .book-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-  .book-spine { width: 7px; flex-shrink: 0; }
-  .book-cover-col { width: 96px; min-width: 96px; background: var(--cinza-card); display: flex; align-items: center; justify-content: center; padding: 16px 10px; }
-  .book-cover-img { width: 72px; height: 104px; border-radius: 4px; object-fit: cover; box-shadow: 2px 3px 10px rgba(0,0,0,0.18); display: block; }
-  .book-cover-placeholder { width: 72px; height: 104px; border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #fff; text-align: center; padding: 8px; line-height: 1.2; box-shadow: 2px 3px 10px rgba(0,0,0,0.18); }
-  .cover-loading { width: 72px; height: 104px; border-radius: 4px; background: var(--cinza-borda); display: flex; align-items: center; justify-content: center; animation: pulse 1.4s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+/* ── GRID ── */
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
 
-  .book-body { flex: 1; padding: 18px 20px 16px; min-width: 0; }
-  .book-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
-  .book-num { font-size: 11px; color: var(--texto-m); font-weight: 500; }
-  .genre-tag { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 99px; }
-  .new-tag { background: var(--roxo); color: #fff; }
-  .book-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--texto); margin-bottom: 3px; line-height: 1.3; }
-  .book-author { font-size: 13px; color: var(--laranja); font-weight: 600; margin-bottom: 10px; }
-  .book-desc { font-size: 13px; color: var(--texto-m); line-height: 1.65; }
-  .cover-source { font-size: 10px; color: var(--cinza-borda); margin-top: 4px; }
+.book-card{background:var(--branco);border:1px solid var(--cinza-borda);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;cursor:default}
+.book-card:hover{box-shadow:0 6px 24px rgba(0,0,0,0.1);transform:translateY(-2px)}
 
-  .empty-state { text-align: center; padding: 48px 20px; color: var(--texto-m); font-size: 15px; }
-  .empty-state .emoji { font-size: 40px; display: block; margin-bottom: 12px; }
+.card-top{position:relative;height:170px;display:flex;align-items:center;justify-content:center;background:var(--cinza-card)}
+.card-spine{position:absolute;left:0;top:0;bottom:0;width:6px}
+.book-cover-img{height:140px;width:auto;max-width:100px;border-radius:4px;object-fit:cover;box-shadow:2px 3px 12px rgba(0,0,0,0.2);display:block}
+.book-cover-placeholder{height:140px;width:96px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;text-align:center;box-shadow:2px 3px 12px rgba(0,0,0,0.2)}
+.cover-loading{height:140px;width:96px;border-radius:4px;background:var(--cinza-borda);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-  /* SUGGEST FORM */
-  .suggest-section { margin-top: 48px; background: var(--branco); border: 1px solid var(--cinza-borda); border-radius: 14px; overflow: hidden; }
-  .suggest-header { background: var(--laranja); padding: 16px 24px; }
-  .suggest-header h2 { font-family: 'Playfair Display', serif; font-size: 20px; color: #fff; font-weight: 700; }
-  .suggest-header p { font-size: 13px; color: rgba(255,255,255,0.85); margin-top: 3px; }
-  .suggest-body { padding: 24px; }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-  .form-group.full { grid-column: 1 / -1; }
-  .form-group label { font-size: 12px; font-weight: 600; color: var(--texto-m); text-transform: uppercase; letter-spacing: 0.05em; }
-  .form-group input, .form-group select, .form-group textarea {
-    font-family: 'Inter', sans-serif; font-size: 14px; padding: 10px 14px;
-    border: 1.5px solid var(--cinza-borda); border-radius: 8px;
-    background: var(--cinza-bg); color: var(--texto); outline: none; transition: border-color 0.15s;
-  }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--laranja); }
-  .form-group textarea { resize: vertical; min-height: 90px; }
-  .cover-hint { font-size: 11px; color: var(--texto-m); margin-top: 4px; line-height: 1.4; }
-  .btn-submit { background: var(--laranja); color: #fff; border: none; border-radius: 8px; padding: 11px 28px; font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 0.15s; }
-  .btn-submit:hover { background: #cc5000; }
-  .success-msg { display: none; background: #D1FAE5; color: #065F46; border-radius: 8px; padding: 14px 18px; font-size: 14px; font-weight: 500; margin-top: 14px; }
-  .success-msg.show { display: block; }
+.card-body{padding:14px 14px 16px;flex:1;display:flex;flex-direction:column;gap:6px}
+.card-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.book-num{font-size:10px;color:var(--texto-m);font-weight:500}
+.genre-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;letter-spacing:.02em}
+.new-tag{background:var(--roxo);color:#fff}
+.card-title{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--texto);line-height:1.3}
+.card-author{font-size:12px;color:var(--laranja);font-weight:600}
+.card-desc{font-size:12px;color:var(--texto-m);line-height:1.6;flex:1}
+.card-more{margin-top:8px;font-size:11px;color:var(--laranja);font-weight:600;cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;padding:0;text-align:left}
+.card-more:hover{text-decoration:underline}
 
-  .site-footer { text-align: center; padding: 24px; font-size: 12px; color: var(--texto-m); border-top: 1px solid var(--cinza-borda); margin-top: 48px; }
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--branco);border-radius:16px;max-width:560px;width:100%;overflow:hidden;transform:translateY(12px);transition:transform .2s}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-header{background:var(--laranja);padding:20px 24px;position:relative}
+.modal-header h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;padding-right:32px;line-height:1.2}
+.modal-header .modal-author{font-size:13px;color:rgba(255,255,255,0.85);margin-top:4px}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.2);border:none;color:#fff;width:28px;height:28px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.modal-close:hover{background:rgba(255,255,255,0.35)}
+.modal-body{display:flex;gap:20px;padding:20px 24px 24px}
+.modal-cover{flex-shrink:0}
+.modal-cover img,.modal-cover .book-cover-placeholder{width:90px;height:130px;border-radius:6px;object-fit:cover;box-shadow:2px 3px 12px rgba(0,0,0,0.2)}
+.modal-info{flex:1;display:flex;flex-direction:column;gap:12px}
+.modal-genre-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 12px;border-radius:99px}
+.modal-desc{font-size:14px;color:var(--texto-m);line-height:1.7}
 
-  @media (max-width: 600px) {
-    .header-inner { padding: 20px; }
-    .header-count { margin-left: 0; }
-    .book-cover-col { width: 80px; min-width: 80px; }
-    .book-cover-img, .book-cover-placeholder, .cover-loading { width: 58px; height: 84px; }
-    .book-title { font-size: 15px; }
-    .form-grid { grid-template-columns: 1fr; }
-    .main { padding: 20px 14px 48px; }
-  }
+/* ── EMPTY ── */
+.empty-state{text-align:center;padding:60px 20px;color:var(--texto-m);grid-column:1/-1}
+.empty-state .emoji{font-size:40px;display:block;margin-bottom:12px}
+
+/* ── SUGGEST FORM ── */
+.suggest-wrap{max-width:640px;margin:0 auto}
+.suggest-intro{font-size:14px;color:var(--texto-m);line-height:1.7;margin-bottom:28px;background:var(--branco);border:1px solid var(--cinza-borda);border-radius:14px;padding:18px 22px}
+.suggest-card{background:var(--branco);border:1px solid var(--cinza-borda);border-radius:14px;overflow:hidden}
+.suggest-header{background:var(--laranja);padding:18px 24px}
+.suggest-header h2{font-family:'Playfair Display',serif;font-size:20px;color:#fff;font-weight:700}
+.suggest-header p{font-size:13px;color:rgba(255,255,255,0.85);margin-top:3px}
+.suggest-body{padding:24px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:11px;font-weight:700;color:var(--texto-m);text-transform:uppercase;letter-spacing:.06em}
+.form-group input,.form-group select,.form-group textarea{font-family:'Inter',sans-serif;font-size:14px;padding:10px 14px;border:1.5px solid var(--cinza-borda);border-radius:8px;background:var(--cinza-bg);color:var(--texto);outline:none;transition:border-color .15s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--laranja)}
+.form-group textarea{resize:vertical;min-height:90px}
+.cover-hint{font-size:11px;color:var(--texto-m);margin-top:4px;line-height:1.5}
+.btn-submit{background:var(--laranja);color:#fff;border:none;border-radius:8px;padding:12px 30px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s}
+.btn-submit:hover{background:#cc5000}
+.success-msg{display:none;background:#D1FAE5;color:#065F46;border-radius:8px;padding:14px 18px;font-size:14px;font-weight:500;margin-top:14px}
+.success-msg.show{display:block}
+
+.site-footer{text-align:center;padding:24px;font-size:12px;color:var(--texto-m);border-top:1px solid var(--cinza-borda);margin-top:48px}
+
+@media(max-width:600px){
+  .header-inner{padding:18px 20px 0}
+  .tabs-bar{padding:0 20px}
+  .tab-btn{padding:10px 16px;font-size:13px}
+  .books-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+  .card-top{height:140px}
+  .book-cover-img,.book-cover-placeholder,.cover-loading{height:110px;width:76px}
+  .form-grid{grid-template-columns:1fr}
+  .modal-body{flex-direction:column}
+}
 </style>
 </head>
 <body>
@@ -110,329 +141,343 @@
   <div class="header-inner">
     <div class="header-icon">📚</div>
     <div class="header-texts">
-      <h1>Indicações de Leitura</h1>
-      <div class="sub">Comunidade do Breno · Clube do Livro</div>
+      <h1>Clube do Livro</h1>
+      <div class="sub">Comunidade do Breno · Indicações de Leitura</div>
     </div>
     <div class="header-count">
       <div class="num" id="total-count">14</div>
       <div class="lbl">indicações</div>
     </div>
   </div>
+  <div class="tabs-bar">
+    <button class="tab-btn active" onclick="switchTab('biblioteca',this)">📖 Biblioteca</button>
+    <button class="tab-btn" onclick="switchTab('indicar',this)">✏️ Indicar livro</button>
+  </div>
   <div class="stripe"></div>
 </header>
 
 <main class="main">
-  <div class="intro">
-    Este guia reúne as indicações de leitura feitas pelos próprios membros da comunidade. Foi montado para facilitar a pesquisa e a escolha de leituras, caso alguém queira conhecer melhor um livro antes de começar. Todas as indicações foram sugeridas organicamente pelo grupo. Quer indicar um livro? Use o formulário no final da página!
-  </div>
 
-  <div class="filters-bar">
-    <span class="filter-label">Filtrar:</span>
-    <div id="pills-container" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-  </div>
-
-  <div class="books-grid" id="books-grid"></div>
-
-  <div class="suggest-section">
-    <div class="suggest-header">
-      <h2>Sugira uma leitura</h2>
-      <p>Indique um livro para a comunidade — sua sugestão aparece na lista na hora!</p>
+  <!-- ABA 1: BIBLIOTECA -->
+  <div class="tab-panel active" id="tab-biblioteca">
+    <div class="filters-row">
+      <span class="filter-label">Filtrar por gênero:</span>
+      <div id="pills-container" style="display:flex;flex-wrap:wrap;gap:8px"></div>
     </div>
-    <div class="suggest-body">
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Título do livro *</label>
-          <input type="text" id="f-title" placeholder="Ex: A Memória das Flores" />
+    <div class="books-grid" id="books-grid"></div>
+  </div>
+
+  <!-- ABA 2: INDICAR -->
+  <div class="tab-panel" id="tab-indicar">
+    <div class="suggest-wrap">
+      <div class="suggest-intro">
+        Quer contribuir com a biblioteca da comunidade? Preencha o formulário abaixo com as informações do livro que você quer indicar. Sua sugestão aparece na aba <strong>Biblioteca</strong> assim que enviada!
+      </div>
+      <div class="suggest-card">
+        <div class="suggest-header">
+          <h2>Sugira uma leitura</h2>
+          <p>Compartilhe um livro que marcou você com a comunidade</p>
         </div>
-        <div class="form-group">
-          <label>Autor(a) *</label>
-          <input type="text" id="f-author" placeholder="Ex: Valérie Perrin" />
-        </div>
-        <div class="form-group">
-          <label>Gênero *</label>
-          <select id="f-genre">
-            <option value="">Selecione...</option>
-            <option>Ficção literária</option>
-            <option>Ficção histórica</option>
-            <option>Romance</option>
-            <option>Conto</option>
-            <option>Thriller / Suspense</option>
-            <option>Desenvolvimento pessoal</option>
-            <option>Autoconhecimento</option>
-            <option>Espiritualidade</option>
-            <option>Clássico brasileiro</option>
-            <option>Não ficção</option>
-            <option>Outro</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Seu nome (opcional)</label>
-          <input type="text" id="f-name" placeholder="Ex: Maria" />
-        </div>
-        <div class="form-group full">
-          <label>URL da capa (opcional)</label>
-          <input type="url" id="f-cover" placeholder="Cole aqui o link da imagem da capa (Amazon, editora, Skoob...)" />
-          <span class="cover-hint">💡 Dica: no site da editora ou da Amazon, clique com o botão direito na capa do livro → "Copiar endereço da imagem" e cole aqui. Se deixar vazio, buscaremos automaticamente.</span>
-        </div>
-        <div class="form-group full">
-          <label>Descrição breve *</label>
-          <textarea id="f-desc" placeholder="Conte um pouco sobre o livro e por que você indica para a comunidade..."></textarea>
+        <div class="suggest-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Título do livro *</label>
+              <input type="text" id="f-title" placeholder="Ex: A Memória das Flores"/>
+            </div>
+            <div class="form-group">
+              <label>Autor(a) *</label>
+              <input type="text" id="f-author" placeholder="Ex: Valérie Perrin"/>
+            </div>
+            <div class="form-group">
+              <label>Gênero *</label>
+              <select id="f-genre">
+                <option value="">Selecione...</option>
+                <option>Ficção literária</option>
+                <option>Ficção histórica</option>
+                <option>Romance</option>
+                <option>Conto</option>
+                <option>Thriller / Suspense</option>
+                <option>Desenvolvimento pessoal</option>
+                <option>Autoconhecimento</option>
+                <option>Espiritualidade</option>
+                <option>Clássico brasileiro</option>
+                <option>Não ficção</option>
+                <option>Outro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Seu nome (opcional)</label>
+              <input type="text" id="f-name" placeholder="Ex: Maria"/>
+            </div>
+            <div class="form-group full">
+              <label>URL da capa (opcional)</label>
+              <input type="url" id="f-cover" placeholder="Cole o link da imagem da capa (Amazon, editora, Skoob...)"/>
+              <span class="cover-hint">💡 No site da editora ou Amazon, clique com o botão direito na capa → "Copiar endereço da imagem" e cole aqui. Se deixar vazio, buscaremos automaticamente.</span>
+            </div>
+            <div class="form-group full">
+              <label>Descrição *</label>
+              <textarea id="f-desc" placeholder="Conte um pouco sobre o livro e por que você o indica para a comunidade..."></textarea>
+            </div>
+          </div>
+          <button class="btn-submit" onclick="submitBook()">➕ Enviar indicação</button>
+          <div class="success-msg" id="success-msg"></div>
         </div>
       </div>
-      <button class="btn-submit" onclick="submitBook()">➕ Enviar indicação</button>
-      <div class="success-msg" id="success-msg"></div>
     </div>
   </div>
+
 </main>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h3 id="modal-title"></h3>
+      <div class="modal-author" id="modal-author"></div>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cover"><div id="modal-cover-el"></div></div>
+      <div class="modal-info">
+        <div><span class="modal-genre-tag" id="modal-genre-tag"></span></div>
+        <div class="modal-desc" id="modal-desc"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer class="site-footer">
   Clube do Livro · Comunidade do Breno &nbsp;·&nbsp; Feito com 📚 pela comunidade
 </footer>
 
 <script>
-const GENRE_COLORS = {
-  "Ficção literária":        { bg:"#EDE9FE", text:"#5B21B6", spine:"#7C3AED" },
-  "Ficção histórica":        { bg:"#FEF3C7", text:"#92400E", spine:"#D97706" },
-  "Romance":                 { bg:"#FCE7F3", text:"#9D174D", spine:"#DB2777" },
-  "Conto":                   { bg:"#DBEAFE", text:"#1E40AF", spine:"#3B82F6" },
-  "Thriller / Suspense":     { bg:"#FEE2E2", text:"#991B1B", spine:"#EF4444" },
-  "Desenvolvimento pessoal": { bg:"#D1FAE5", text:"#065F46", spine:"#10B981" },
-  "Autoconhecimento":        { bg:"#E0F2FE", text:"#075985", spine:"#0EA5E9" },
-  "Espiritualidade":         { bg:"#F3E8FF", text:"#6B21A8", spine:"#A855F7" },
-  "Clássico brasileiro":     { bg:"#FEF9C3", text:"#854D0E", spine:"#EAB308" },
-  "Não ficção":              { bg:"#F0FDF4", text:"#166534", spine:"#22C55E" },
-  "Outro":                   { bg:"#F3F4F6", text:"#374151", spine:"#9CA3AF" },
+const GENRE_COLORS={
+  "Ficção literária":       {bg:"#EDE9FE",text:"#5B21B6",spine:"#7C3AED"},
+  "Ficção histórica":       {bg:"#FEF3C7",text:"#92400E",spine:"#D97706"},
+  "Romance":                {bg:"#FCE7F3",text:"#9D174D",spine:"#DB2777"},
+  "Conto":                  {bg:"#DBEAFE",text:"#1E40AF",spine:"#3B82F6"},
+  "Thriller / Suspense":    {bg:"#FEE2E2",text:"#991B1B",spine:"#EF4444"},
+  "Desenvolvimento pessoal":{bg:"#D1FAE5",text:"#065F46",spine:"#10B981"},
+  "Autoconhecimento":       {bg:"#E0F2FE",text:"#075985",spine:"#0EA5E9"},
+  "Espiritualidade":        {bg:"#F3E8FF",text:"#6B21A8",spine:"#A855F7"},
+  "Clássico brasileiro":    {bg:"#FEF9C3",text:"#854D0E",spine:"#EAB308"},
+  "Não ficção":             {bg:"#F0FDF4",text:"#166534",spine:"#22C55E"},
+  "Outro":                  {bg:"#F3F4F6",text:"#374151",spine:"#9CA3AF"},
 };
 
-const SPINE_PALETTE = ["#7C3AED","#E85C00","#DB2777","#0EA5E9","#10B981","#EF4444","#D97706","#A855F7","#3B82F6","#EAB308","#22C55E","#9CA3AF"];
-
-const BOOKS_INITIAL = [
-  { num:1,  title:"Onde Vivem as Monstras",                author:"Aoko Matsuda",                   genre:"Conto",                   desc:"Coletânea de contos em que histórias do folclore japonês são recontadas sob uma perspectiva feminista. Mortos convivem com vivos, e o humor e o olhar feminino se entrecruzam.",                                                                              titleEn:"Where the Wild Ladies Are" },
-  { num:2,  title:"Os Esquecidos de Domingo",              author:"Valérie Perrin",                 genre:"Romance",                 desc:"Justine trabalha num lar de idosos numa pequena aldeia francesa, onde cria um laço profundo com Hélène, centenária cujo sonho sempre foi aprender a ler. Enquanto as conversas se multiplicam, ela começa a questionar a morte dos pais.",                    titleEn:"Forgotten on Sunday" },
-  { num:3,  title:"Água Fresca para as Flores",            author:"Valérie Perrin",                 genre:"Romance",                 desc:"Violette Toussaint é zeladora de um cemitério onde sua casa funciona como abrigo diante da perda. Com quase cinquenta anos, carrega uma infância conturbada e um marido desaparecido. Tudo muda com a chegada de um homem misterioso.",                         titleEn:"Fresh Water for Flowers" },
-  { num:4,  title:"As Quatro Vidas de Daiyu",             author:"Jenny Tinghui Zhang",            genre:"Ficção literária",        desc:"China, 1882. Daiyu é sequestrada e contrabandeada para os Estados Unidos, onde enfrenta a violência contra imigrantes chineses. Romance arrebatador sobre amor, preconceito e sobrevivência.",                                                                   titleEn:"The Four Winds Daiyu" },
-  { num:5,  title:"A Paciente Silenciosa",                 author:"Alex Michaelides",              genre:"Thriller / Suspense",     desc:"Após matar o marido com cinco tiros, uma pintora famosa se recusa a dizer uma palavra. O psicoterapeuta Theo Faber fica obcecado em fazê-la falar. Best-seller com final eletrizante.",                                                                              titleEn:"The Silent Patient" },
-  { num:6,  title:"A Morte de Vivek Oji",                 author:"Akwaeke Emezi",                 genre:"Ficção literária",        desc:"Narrativa fluida com idas e vindas temporais e múltiplas perspectivas, acompanhando personagens que orbitam ao redor de Vivek, cuja morte é anunciada no título. Obra atravessada por questões de gênero e identidade.",                                      titleEn:"Death of Vivek Oji" },
-  { num:7,  title:"Hábitos Atômicos",                      author:"James Clear",                   genre:"Desenvolvimento pessoal", desc:"Manual prático sobre como pequenas mudanças de comportamento geram resultados extraordinários. Explica como construir bons hábitos e eliminar os ruins usando a ciência do comportamento humano.",                                                                  titleEn:"Atomic Habits" },
-  { num:8,  title:"Deu Zebra! Descobrindo a Superdotação", author:"Sophie Prignon e Thais Mesquita",genre:"Não ficção",             desc:"Com linguagem descomplicada, traz conhecimento científico sobre a superdotação com depoimentos de pessoas identificadas tardiamente. Mostra que ser neuroatípico não é ser gênio nem problemático.",                                                            titleEn:"Deu Zebra Superdotacao" },
-  { num:9,  title:"Bem-Vindos à Livraria Hyunam-Dong",     author:"Hwang Bo-Reum",                 genre:"Ficção literária",        desc:"Yeongju decide deixar tudo para trás e abrir uma livraria — seu sonho desde a infância. A livraria se transforma num espaço onde almas feridas descansam e descobrem o que realmente importa. Fenômeno coreano.",                                              titleEn:"Welcome to the Hyunam-dong Bookshop" },
-  { num:10, title:"Grande Sertão: Veredas",                author:"João Guimarães Rosa",           genre:"Clássico brasileiro",     desc:"O maior romance da literatura brasileira. O ex-jagunço Riobaldo narra sua vida no sertão mineiro, seus combates, amizades e o amor ambíguo por Diadorim. Uma obra densa que questiona o bem, o mal e a existência do diabo.",                                  titleEn:"The Devil to Pay in the Backlands" },
-  { num:11, title:"Talvez Você Deva Conversar com Alguém", author:"Lori Gottlieb",                 genre:"Autoconhecimento",        desc:"A terapeuta Lori Gottlieb precisa ela mesma iniciar um processo terapêutico. Combinando histórias de quatro pacientes com sua própria experiência, oferece um relato afetuoso sobre a universalidade das angústias humanas.",                                   titleEn:"Maybe You Should Talk to Someone" },
-  { num:12, title:"Cartas de um Diabo ao Seu Aprendiz",    author:"C. S. Lewis",                   genre:"Ficção literária",        desc:"Correspondência cômica e original entre um diabo experiente e seu sobrinho aprendiz. Os papéis se invertem: Deus é chamado de Inimigo. Clássico da literatura cristã publicado em 1942.",                                                                         titleEn:"The Screwtape Letters" },
-  { num:13, title:"A Vila dos Tecidos",                    author:"Anne Jacobs",                   genre:"Ficção histórica",        desc:"Augsburgo, 1913. Após uma infância difícil num orfanato, a jovem Marie consegue emprego na mansão da Vila dos Tecidos, o conglomerado têxtil mais proeminente da Alemanha. Uma mansão, uma família poderosa e um segredo obscuro.",                            titleEn:"The Tuchvilla" },
-  { num:14, title:"Castelo Interior (ou Moradas)",         author:"Santa Teresa de Ávila",         genre:"Espiritualidade",         desc:"Clássico da espiritualidade cristã escrito em 1577. Teresa descreve a alma como um castelo de diamante com sete moradas, cada uma representando um estágio rumo à união com Deus. Ensinamentos para pessoas de todas as fés.",                               titleEn:"The Interior Castle Teresa Avila" },
+const BOOKS_INITIAL=[
+  {num:1, title:"Onde Vivem as Monstras",                author:"Aoko Matsuda",                   genre:"Conto",                   titleEn:"Where the Wild Ladies Are",            desc:"Coletânea de contos em que histórias do folclore japonês são recontadas sob uma perspectiva feminista. Mortos convivem com vivos, e o humor e o olhar feminino se entrecruzam."},
+  {num:2, title:"Os Esquecidos de Domingo",              author:"Valérie Perrin",                 genre:"Romance",                 titleEn:"Forgotten on Sunday",                  desc:"Justine trabalha num lar de idosos numa pequena aldeia francesa, onde cria um laço profundo com Hélène, centenária cujo sonho sempre foi aprender a ler. Enquanto as conversas se multiplicam, ela começa a questionar a morte dos pais, e surgem telefonemas misteriosos."},
+  {num:3, title:"Água Fresca para as Flores",            author:"Valérie Perrin",                 genre:"Romance",                 titleEn:"Fresh Water for Flowers",              desc:"Violette Toussaint é zeladora de um cemitério onde sua casa funciona como abrigo diante da perda. Com quase cinquenta anos, carrega uma infância conturbada e um marido desaparecido. Tudo muda com a chegada de um homem misterioso."},
+  {num:4, title:"As Quatro Vidas de Daiyu",             author:"Jenny Tinghui Zhang",            genre:"Ficção literária",        titleEn:"Four Treasures of the Sky",            desc:"China, 1882. Daiyu é sequestrada e contrabandeada para os Estados Unidos, onde enfrenta a violência contra imigrantes chineses. Romance arrebatador sobre amor, preconceito e sobrevivência."},
+  {num:5, title:"A Paciente Silenciosa",                 author:"Alex Michaelides",              genre:"Thriller / Suspense",     titleEn:"The Silent Patient",                   desc:"Após matar o marido com cinco tiros, uma pintora famosa se recusa a dizer uma palavra. O psicoterapeuta Theo Faber fica obcecado em fazê-la falar. Best-seller com final eletrizante que faz o leitor questionar tudo que acabou de ler."},
+  {num:6, title:"A Morte de Vivek Oji",                 author:"Akwaeke Emezi",                 genre:"Ficção literária",        titleEn:"Death of Vivek Oji",                   desc:"Narrativa fluida com idas e vindas temporais e múltiplas perspectivas, acompanhando personagens que orbitam ao redor de Vivek, cuja morte é anunciada no título. Obra atravessada por questões de gênero e identidade."},
+  {num:7, title:"Hábitos Atômicos",                      author:"James Clear",                   genre:"Desenvolvimento pessoal", titleEn:"Atomic Habits",                        desc:"Manual prático sobre como pequenas mudanças de comportamento geram resultados extraordinários. Explica como construir bons hábitos e eliminar os ruins usando a ciência do comportamento humano."},
+  {num:8, title:"Deu Zebra! Descobrindo a Superdotação", author:"Sophie Prignon e Thais Mesquita",genre:"Não ficção",            titleEn:"Deu Zebra Superdotacao",               desc:"Com linguagem descomplicada, traz conhecimento científico sobre a superdotação com depoimentos de pessoas identificadas tardiamente. Mostra que ser neuroatípico não é ser gênio nem problemático."},
+  {num:9, title:"Bem-Vindos à Livraria Hyunam-Dong",     author:"Hwang Bo-Reum",                 genre:"Ficção literária",        titleEn:"Welcome to the Hyunam-dong Bookshop",  desc:"Yeongju decide deixar tudo para trás e abrir uma livraria — seu sonho desde a infância. A livraria se transforma num espaço onde almas feridas descansam e descobrem o que realmente importa. Fenômeno coreano."},
+  {num:10,title:"Grande Sertão: Veredas",                author:"João Guimarães Rosa",           genre:"Clássico brasileiro",     titleEn:"The Devil to Pay in the Backlands",    desc:"O maior romance da literatura brasileira. O ex-jagunço Riobaldo narra sua vida no sertão mineiro, seus combates, amizades e o amor ambíguo por Diadorim. Uma obra densa que questiona o bem, o mal e a existência do diabo."},
+  {num:11,title:"Talvez Você Deva Conversar com Alguém", author:"Lori Gottlieb",                 genre:"Autoconhecimento",        titleEn:"Maybe You Should Talk to Someone",     desc:"A terapeuta Lori Gottlieb precisa ela mesma iniciar um processo terapêutico. Combinando histórias de quatro pacientes com sua própria experiência, oferece um relato afetuoso sobre a universalidade das angústias humanas."},
+  {num:12,title:"Cartas de um Diabo ao Seu Aprendiz",    author:"C. S. Lewis",                   genre:"Ficção literária",        titleEn:"The Screwtape Letters",                desc:"Correspondência cômica e original entre um diabo experiente e seu sobrinho aprendiz. Os papéis se invertem: Deus é chamado de Inimigo. Clássico da literatura cristã publicado em 1942."},
+  {num:13,title:"A Vila dos Tecidos",                    author:"Anne Jacobs",                   genre:"Ficção histórica",        titleEn:"The Tuchvilla",                        desc:"Augsburgo, 1913. Após uma infância difícil num orfanato, a jovem Marie consegue emprego na mansão da Vila dos Tecidos, o conglomerado têxtil mais proeminente da Alemanha. Uma mansão, uma família poderosa e um segredo obscuro."},
+  {num:14,title:"Castelo Interior (ou Moradas)",         author:"Santa Teresa de Ávila",         genre:"Espiritualidade",         titleEn:"The Interior Castle Teresa Avila",     desc:"Clássico da espiritualidade cristã escrito em 1577. Teresa descreve a alma como um castelo de diamante com sete moradas, cada uma representando um estágio rumo à união com Deus. Ensinamentos para pessoas de todas as fés."},
 ];
 
-let books = BOOKS_INITIAL.map(b => ({...b}));
-let activeFilter = "Todos";
-const coverCache = {};
+let books=[...BOOKS_INITIAL];
+let activeFilter="Todos";
+const coverCache={};
 
-/* ───── COVER FETCHING — cascata de 3 fontes ───── */
+/* ── TABS ── */
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
 
-async function fetchGoogleBooks(title, author, titleEn) {
-  const queries = [
-    titleEn ? `${titleEn} ${author}` : null,
-    `${title} ${author}`,
-    title,
-  ].filter(Boolean);
-
-  for (const q of queries) {
-    try {
-      const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=3`;
-      const r = await fetch(url);
-      const d = await r.json();
-      for (const item of (d.items || [])) {
-        const links = item.volumeInfo?.imageLinks || {};
-        for (const key of ["large","medium","small","thumbnail"]) {
-          if (links[key]) {
-            return links[key]
-              .replace("http:","https:")
-              .replace("zoom=1","zoom=2")
-              .replace("&edge=curl","");
-          }
+/* ── COVERS ── */
+async function fetchGoogleBooks(title,author,titleEn){
+  const queries=[titleEn?`${titleEn} ${author}`:null,`${title} ${author}`,title].filter(Boolean);
+  for(const q of queries){
+    try{
+      const r=await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=3`);
+      const d=await r.json();
+      for(const item of(d.items||[])){
+        const links=item.volumeInfo?.imageLinks||{};
+        for(const k of["large","medium","small","thumbnail"]){
+          if(links[k]) return links[k].replace("http:","https:").replace("zoom=1","zoom=2").replace("&edge=curl","");
         }
       }
-    } catch {}
+    }catch{}
   }
   return null;
 }
 
-async function fetchOpenLibrary(title, author, titleEn) {
-  const queries = [
-    titleEn || null,
-    title,
-  ].filter(Boolean);
-
-  for (const q of queries) {
-    try {
-      const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(q)}&limit=5`;
-      const r = await fetch(url);
-      const d = await r.json();
-      for (const doc of (d.docs || [])) {
-        if (doc.cover_i) {
-          return `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
-        }
-        for (const isbn of (doc.isbn || [])) {
-          const test = `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`;
-          // Open Library returns a 1x1 gif for missing covers — check size
-          try {
-            const probe = await fetch(test, { method: "HEAD" });
-            const len = parseInt(probe.headers.get("content-length") || "0");
-            if (len > 2000) return test;
-          } catch {}
+async function fetchOpenLibrary(title,titleEn){
+  for(const q of[titleEn,title].filter(Boolean)){
+    try{
+      const r=await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(q)}&limit=5`);
+      const d=await r.json();
+      for(const doc of(d.docs||[])){
+        if(doc.cover_i) return`https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`;
+        for(const isbn of(doc.isbn||[])){
+          const url=`https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`;
+          try{
+            const p=await fetch(url,{method:"HEAD"});
+            if(parseInt(p.headers.get("content-length")||"0")>2000) return url;
+          }catch{}
         }
       }
-    } catch {}
+    }catch{}
   }
   return null;
 }
 
-async function fetchCover(book) {
-  const key = book.num;
-  if (coverCache[key]) return coverCache[key];
-
-  // 1. URL manual fornecida pelo usuário — prioridade máxima
-  if (book.coverUrl) {
-    coverCache[key] = { url: book.coverUrl, source: "manual" };
-    return coverCache[key];
-  }
-
-  // 2. Google Books
-  const gb = await fetchGoogleBooks(book.title, book.author, book.titleEn);
-  if (gb) {
-    coverCache[key] = { url: gb, source: "Google Books" };
-    return coverCache[key];
-  }
-
-  // 3. Open Library
-  const ol = await fetchOpenLibrary(book.title, book.author, book.titleEn);
-  if (ol) {
-    coverCache[key] = { url: ol, source: "Open Library" };
-    return coverCache[key];
-  }
-
-  coverCache[key] = null;
+async function getCover(book){
+  const k=book.num;
+  if(coverCache[k]!==undefined) return coverCache[k];
+  if(book.coverUrl){coverCache[k]=book.coverUrl;return book.coverUrl;}
+  const gb=await fetchGoogleBooks(book.title,book.author,book.titleEn);
+  if(gb){coverCache[k]=gb;return gb;}
+  const ol=await fetchOpenLibrary(book.title,book.titleEn);
+  if(ol){coverCache[k]=ol;return ol;}
+  coverCache[k]=null;
   return null;
 }
 
-/* ───── RENDER ───── */
-
-function getInitials(title) {
-  const words = title.split(' ').filter(w => w.length > 2);
-  return words.slice(0,2).map(w => w[0]).join('').toUpperCase() || title.slice(0,2).toUpperCase();
+/* ── RENDER ── */
+function initials(t){
+  return t.split(' ').filter(w=>w.length>2).slice(0,2).map(w=>w[0]).join('').toUpperCase()||t.slice(0,2).toUpperCase();
 }
 
-function placeholderHtml(book, spineColor) {
-  return `<div class="book-cover-placeholder" style="background:linear-gradient(150deg,${spineColor}dd,${spineColor}88)">${getInitials(book.title)}</div>`;
+function allGenres(){
+  return["Todos",...Array.from(new Set(books.map(b=>b.genre))).sort()];
 }
 
-function allGenres() {
-  const s = new Set(books.map(b => b.genre));
-  return ["Todos", ...Array.from(s).sort()];
-}
-
-function renderPills() {
-  const c = document.getElementById('pills-container');
-  c.innerHTML = '';
-  allGenres().forEach(g => {
-    const count = g === "Todos" ? books.length : books.filter(x => x.genre === g).length;
-    const btn = document.createElement('button');
-    btn.className = 'pill' + (g === activeFilter ? ' active' : '');
-    btn.textContent = g === "Todos" ? `Todos (${count})` : `${g} (${count})`;
-    btn.onclick = () => { activeFilter = g; renderPills(); renderBooks(); };
+function renderPills(){
+  const c=document.getElementById('pills-container');
+  c.innerHTML='';
+  allGenres().forEach(g=>{
+    const n=g==="Todos"?books.length:books.filter(b=>b.genre===g).length;
+    const btn=document.createElement('button');
+    btn.className='pill'+(g===activeFilter?' active':'');
+    btn.textContent=g==="Todos"?`Todos (${n})`:`${g} (${n})`;
+    btn.onclick=()=>{activeFilter=g;renderPills();renderGrid();};
     c.appendChild(btn);
   });
 }
 
-function renderBooks() {
-  const grid = document.getElementById('books-grid');
-  document.getElementById('total-count').textContent = books.length;
-  const filtered = activeFilter === "Todos" ? books : books.filter(b => b.genre === activeFilter);
-
-  if (filtered.length === 0) {
-    grid.innerHTML = `<div class="empty-state"><span class="emoji">📭</span>Nenhum livro neste gênero ainda.</div>`;
+function renderGrid(){
+  const grid=document.getElementById('books-grid');
+  document.getElementById('total-count').textContent=books.length;
+  const list=activeFilter==="Todos"?books:books.filter(b=>b.genre===activeFilter);
+  if(!list.length){
+    grid.innerHTML=`<div class="empty-state"><span class="emoji">📭</span>Nenhum livro neste gênero ainda.</div>`;
     return;
   }
-
-  grid.innerHTML = '';
-  filtered.forEach(b => {
-    const gc = GENRE_COLORS[b.genre] || GENRE_COLORS["Outro"];
-    const spineColor = gc.spine;
-
-    const card = document.createElement('div');
-    card.className = 'book-card';
-    card.id = `card-${b.num}`;
-    card.innerHTML = `
-      <div class="book-spine" style="background:${spineColor}"></div>
-      <div class="book-cover-col">
-        <div class="cover-loading" id="cover-${b.num}" title="Carregando capa...">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        </div>
+  grid.innerHTML='';
+  list.forEach(b=>{
+    const gc=GENRE_COLORS[b.genre]||GENRE_COLORS["Outro"];
+    const card=document.createElement('div');
+    card.className='book-card';
+    const descShort=b.desc.length>120?b.desc.slice(0,117)+'…':b.desc;
+    const hasMore=b.desc.length>120;
+    card.innerHTML=`
+      <div class="card-top">
+        <div class="card-spine" style="background:${gc.spine}"></div>
+        <div class="cover-loading" id="cov-${b.num}"></div>
       </div>
-      <div class="book-body">
-        <div class="book-meta">
+      <div class="card-body">
+        <div class="card-meta">
           <span class="book-num">Nº ${String(b.num).padStart(2,'0')}</span>
           <span class="genre-tag" style="background:${gc.bg};color:${gc.text}">${b.genre}</span>
-          ${b.isNew ? '<span class="genre-tag new-tag">nova</span>' : ''}
+          ${b.isNew?'<span class="genre-tag new-tag">nova</span>':''}
         </div>
-        <div class="book-title">${b.title}</div>
-        <div class="book-author">${b.author}</div>
-        <div class="book-desc">${b.desc}</div>
+        <div class="card-title">${b.title}</div>
+        <div class="card-author">${b.author}</div>
+        <div class="card-desc">${descShort}</div>
+        ${hasMore?`<button class="card-more" onclick='openModal(${b.num})'>Ver descrição completa →</button>`:''}
       </div>`;
     grid.appendChild(card);
 
-    // Busca capa de forma assíncrona
-    fetchCover(b).then(result => {
-      const el = document.getElementById(`cover-${b.num}`);
-      if (!el) return;
-      if (result?.url) {
-        const img = document.createElement('img');
-        img.className = 'book-cover-img';
-        img.alt = `Capa de ${b.title}`;
-        img.src = result.url;
-        img.onerror = () => { el.outerHTML = placeholderHtml(b, spineColor); };
+    getCover(b).then(url=>{
+      const el=document.getElementById(`cov-${b.num}`);
+      if(!el) return;
+      if(url){
+        const img=document.createElement('img');
+        img.className='book-cover-img';
+        img.alt=`Capa de ${b.title}`;
+        img.src=url;
+        img.onerror=()=>{el.outerHTML=`<div class="book-cover-placeholder" style="background:linear-gradient(145deg,${gc.spine}cc,${gc.spine}66)">${initials(b.title)}</div>`;};
         el.replaceWith(img);
       } else {
-        el.outerHTML = placeholderHtml(b, spineColor);
+        el.outerHTML=`<div class="book-cover-placeholder" style="background:linear-gradient(145deg,${gc.spine}cc,${gc.spine}66)">${initials(b.title)}</div>`;
       }
     });
   });
 }
 
-function submitBook() {
-  const title    = document.getElementById('f-title').value.trim();
-  const author   = document.getElementById('f-author').value.trim();
-  const genre    = document.getElementById('f-genre').value;
-  const desc     = document.getElementById('f-desc').value.trim();
-  const name     = document.getElementById('f-name').value.trim();
-  const coverUrl = document.getElementById('f-cover').value.trim();
-
-  if (!title || !author || !genre || !desc) {
-    alert('Por favor, preencha título, autor, gênero e descrição.');
-    return;
+/* ── MODAL ── */
+function openModal(num){
+  const b=books.find(x=>x.num===num);
+  if(!b) return;
+  const gc=GENRE_COLORS[b.genre]||GENRE_COLORS["Outro"];
+  document.getElementById('modal-title').textContent=b.title;
+  document.getElementById('modal-author').textContent=b.author;
+  document.getElementById('modal-desc').textContent=b.desc;
+  const tag=document.getElementById('modal-genre-tag');
+  tag.textContent=b.genre;
+  tag.style.background=gc.bg;
+  tag.style.color=gc.text;
+  const coverEl=document.getElementById('modal-cover-el');
+  const cached=coverCache[num];
+  if(cached){
+    coverEl.innerHTML=`<img src="${cached}" alt="Capa" style="width:90px;height:130px;border-radius:6px;object-fit:cover;box-shadow:2px 3px 12px rgba(0,0,0,.2)">`;
+  } else {
+    coverEl.innerHTML=`<div class="book-cover-placeholder" style="width:90px;height:130px;border-radius:6px;background:linear-gradient(145deg,${gc.spine}cc,${gc.spine}66)">${initials(b.title)}</div>`;
+    getCover(b).then(url=>{
+      if(url) coverEl.innerHTML=`<img src="${url}" alt="Capa" style="width:90px;height:130px;border-radius:6px;object-fit:cover;box-shadow:2px 3px 12px rgba(0,0,0,.2)">`;
+    });
   }
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
 
-  const num = books.length + 1;
-  books.push({ num, title, author, genre, desc, isNew: true, coverUrl: coverUrl || null, query: `${title} ${author}` });
+function closeModal(e){
+  if(e.target===document.getElementById('modal-overlay')) closeModalDirect();
+}
+function closeModalDirect(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModalDirect();});
 
-  ['f-title','f-author','f-genre','f-desc','f-name','f-cover'].forEach(id => {
-    const el = document.getElementById(id);
-    el.value = el.tagName === 'SELECT' ? '' : '';
+/* ── SUBMIT ── */
+function submitBook(){
+  const title   =document.getElementById('f-title').value.trim();
+  const author  =document.getElementById('f-author').value.trim();
+  const genre   =document.getElementById('f-genre').value;
+  const desc    =document.getElementById('f-desc').value.trim();
+  const name    =document.getElementById('f-name').value.trim();
+  const coverUrl=document.getElementById('f-cover').value.trim();
+  if(!title||!author||!genre||!desc){alert('Por favor, preencha título, autor, gênero e descrição.');return;}
+  books.push({num:books.length+1,title,author,genre,desc,isNew:true,coverUrl:coverUrl||null});
+  ['f-title','f-author','f-genre','f-desc','f-name','f-cover'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.value='';
   });
-
-  const msg = document.getElementById('success-msg');
-  msg.textContent = `✅ Obrigada${name ? ', ' + name : ''}! "${title}" foi adicionado à lista.`;
+  const msg=document.getElementById('success-msg');
+  msg.textContent=`✅ Obrigada${name?', '+name:''}! "${title}" foi adicionado à biblioteca.`;
   msg.classList.add('show');
-  setTimeout(() => msg.classList.remove('show'), 5000);
-
-  activeFilter = "Todos";
+  setTimeout(()=>msg.classList.remove('show'),5000);
+  activeFilter='Todos';
   renderPills();
-  renderBooks();
-  document.getElementById('books-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderGrid();
+  // volta pra aba biblioteca
+  switchTab('biblioteca',document.querySelector('.tab-btn'));
 }
 
 renderPills();
-renderBooks();
+renderGrid();
 </script>
 </body>
 </html>
