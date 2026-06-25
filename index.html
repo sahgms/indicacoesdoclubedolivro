@@ -266,7 +266,7 @@ const GENRE_COLORS={
   "Outro":                  {bg:"#F3F4F6",text:"#374151",spine:"#9CA3AF"},
 };
 
-const supabase = createClient(
+const supabaseClient = window.supabase.createClient(
   'https://zbhxbbvayowfuecchoeu.supabase.co',
   'sb_publishable_34fCt-rPSUAbn3kffbFhTg_G-vfjWs5'
 );
@@ -298,7 +298,7 @@ const coverCache={};
  */
 async function fetchBooks(){
   try{
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('books')
       .select('*')
       .order('created_at', { ascending: true });
@@ -332,7 +332,7 @@ async function fetchBooks(){
  * Insere um novo livro no Supabase e retorna o registro criado.
  */
 async function submitBookToSupabase(book){
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('books')
     .insert(book)
     .select()
